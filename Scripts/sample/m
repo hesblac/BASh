@@ -1,0 +1,11 @@
+#!/bin/bash
+#first shell to make others.
+
+newname=$1
+
+touch $newname
+chmod ugo=wrx $newname
+echo "#!/bin/bash" > $newname
+echo "" >> $newname
+vim $newname
+

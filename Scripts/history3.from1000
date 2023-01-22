@@ -1,0 +1,1015 @@
+   44  vim first.sh
+   45  var
+   46  source first.sh 
+   47  var
+   48  chmod +x first.sh 
+   49  var
+   50  source first.sh 
+   51  var
+   52  echo $var
+   53  #a sourced script does not need to be executable
+   54  #reading input
+   55  vim ask.sh
+   56  ls
+   57  chmod +x ask.sh 
+   58  ./ask.sh 
+   59  vim ask.sh 
+   60  ./ask.sh 
+   61  bash ask.sh 
+   62  who
+   63  exit
+   64  alias | grep yes
+   65  exit
+   66  ls
+   67  history
+   68  ls -l /dev/sda /dev/sda1 /dev/sda2
+   69  cd paul_linux/
+   70  ls
+   71  cd practice/
+   72  ls
+   73  ls -l dates.txt 
+   74  sudo chown gbolaga:football /home/sysadmin/paul_linux/practice/dates.txt 
+   75  ls -l dates.txt 
+   76  cat dates.txt 
+   77  chown sysadmin:sysadmin dates.txt 
+   78  #the stat command will display permissionsin octal and human form. with uid and gid
+   79  stat recu/file42 | grep Access | head -1
+   80  ls
+   81  stat recu/file33 | grep Access | head -1
+   82  umask
+   83  mkdir -m 700 mydir
+   84  ls -ld mydir/
+   85  mkdir /srf/project42
+   86  mkdir -p /srf/project42
+   87  mkdir -f /srf/project42
+   88  history 
+   89  mkdir -p srf/project42
+   90  ls -l /srf
+   91  ls -l srf
+   92  chmod +t srf/project42/
+   93  ls -l srf/
+   94  chmod 1750 srf/project42/
+   95  ls -l srf/
+   96  find / type d -perm -1000 2>/dev/null 
+   97  chmod g+s srf/project42/
+   98  ls -l srf/
+   99  find / -type d -perm -2000 2> /dev/null
+  100  find /usr/bin/ -type f -perm 4000 -exec ls -l {} \;
+  101  sudo find /usr/bin/ -type f -perm 4000 -exec ls -l {} \;
+  102  ls -l /etc/shadow
+  103  passwd
+  104  sudo find / -type f -perm -2000 2>/dev/null
+  105  ls -l /etc/shadow
+  106  ls -l /usr/bin/chage 
+  107  man chattr
+  108  #setting immutable flag on a file , thus, the file can no longer be renamed changedm novedin anyway
+  109  sudo toch imfile
+  110  sudo touch imfile
+  111  ls -l imfile 
+  112  chattr +i imfile 
+  113  sudo +i imfile 
+  114  sudo chattr +i imfile 
+  115  ls -l imfile 
+  116  lsattr imfile 
+  117  #use the chattr -i to remove the immutable file
+  118  sudo chattr -i imfile 
+  119  lsattr imfile 
+  120  rm -rf imfile 
+  121  ls
+  122  #appendable 
+  123  sudo touch apfile
+  124  sudo chattr +a apfile 
+  125  mv apfile test
+  126  sudt mv apfile test
+  127  sudo mv apfile test
+  128  ls -l apfile 
+  129  echo "The answer is 42" > apfile 
+  130  echo "The answer is 42" >> apfile 
+  131  rm -rf apfile 
+  132  #dont randomly set this on log files as logrotate will fail.
+  133  sudo chattr -a apfile 
+  134  lsattr apfile 
+  135  echo "The answer is 42" >> apfile 
+  136  echo "The answer is 42" > apfile 
+  137  sudo cat apfile 
+  138  sudo rm apfile 
+  139  history
+  140  #using ACL
+  141  #ls
+  142  touch newfile
+  143  chmod 770 newfile 
+  144  ls -l newfile 
+  145  dnf instal acl
+  146  sudo dnf instal acl
+  147  sudo dnf install acl
+  148  ls -l newfile 
+  149  stat newfile 
+  150  getfacl newfile
+  151  touch  770 oldfile
+  152  ls -l oldfile 
+  153  chmod 770 oldfile 
+  154  ls -l
+  155  echo hello > oldfile 
+  156  ls -l oldfile 
+  157  stat oldfile 
+  158  setfacl -mu:gbolaga:7 oldfile 
+  159  getfacl  oldfile | grep  gbolaga
+  160  la -l oldfile 
+  161  ls -l oldfile 
+  162  su - gbolaga 
+  163  pwd
+  164  su - gbolaga
+  165  ls -l oldfile 
+  166  sudo /etc/group | grep gbolaga
+  167  sudo cat /etc/group | grep gbolaga
+  168  getfacl oldfile 
+  169  #setfacl --set command
+  170  mkdir -p /srp/project33
+  171  history
+  172  mkdir -p srp/project33
+  173  setfacl --set u::7,g::7,u:gbolaga:r,o::-,g:tennis:7 srp/project33/
+  174  getfacl srp/project33/
+  175  ls  -l srp/project33/
+  176  ls -l srp
+  177  #The example above is equal to chmod 770 /srv/project33 followed by setfacl -m u:tania:r,g:pro33:7 /srv/project33 .
+  178  history
+  179  #mask
+  180  chmod 750 srp/project33/
+  181  getfacl srp/project33/
+  182  setfacl -m u:gbolaga:7 srp/project33/
+  183  getfacl srp/project33/
+  184  #default acls. making a directory acl; that all other file and subdir will inherit the  ACL. using the -d option to setfacl.
+  185  rm -rf srp/project33/
+  186  mkdir -p srp/project33
+  187  sudo cat /etc/group
+  188  groupadd pro33
+  189  sudo groupadd pro33
+  190  sudo cat /etc/group
+  191  chown root:pro33 srp/project33/
+  192  sudo chown root:pro33 srp/project33/
+  193  ls -l srp/project33/
+  194  ls -l srp/
+  195  setfacl -d --set u::7,g::7,o::-,g:pro33:7,u:gbolaga:7 srp/project33/
+  196  sudo setfacl -d --set u::7,g::7,o::-,g:pro33:7,u:gbolaga:7 srp/project33/
+  197  mkdir srp/project33/newdir
+  198  sudo mkdir srp/project33/newdir
+  199  getfacl srp/project33/newdir/
+  200  getfacl srp/project33/ | setfacl --ser-file=- srp/project33/
+  201  getfacl srp/project33/ | setfacl --set-file=- srp/project33/
+  202  getfacl srp/project33/
+  203  #setfacl --set-file  is similar to -d --set
+  204  vim /etc/fstab 
+  205  ls
+  206  ls -li
+  207  stat dates.txt 
+  208  ls -li file42 
+  209  ln oldfile newfile 
+  210  ln oldfile dates.txt 
+  211  ln oldfile freefile
+  212  ls -le oldfile freefile 
+  213  ls -li oldfile freefile 
+  214  echo " the lady jumped over the black river" > freefile 
+  215  ls -li oldfile freefile 
+  216  cat oldfile 
+  217  ls -la
+  218  ls -li
+  219  ls -li | sort -n
+  220  #find hard links
+  221  find ~ -inum 173233
+  222  find ~ -inum 173277
+  223  sudo find ~ -inum 173277
+  224  history
+  225  ls -lai
+  226  #creating sybolic link
+  227  ln -s file42  sorted_cities.txt 
+  228  ln -s file42 symlink.txt
+  229  ls -l
+  230  cat file42 
+  231  vim symlink.txt 
+  232  vim file42 
+  233  cd
+  234  #the readlink tool.. used to trace symlink to its origin
+  235  readlink /usr/bin/rename 
+  236  readlink /home/sysadmin/paul_linux/practice/symlink.txt 
+  237  readlink /home/sysadmin/paul_linux/practice/file42 
+  238  readlink  -f /home/sysadmin/paul_linux/practice/symlink.txt 
+  239  #process
+  240  ls /proc
+  241  pidof bash
+  242  echo $$
+  243  #this shows the process id nmber of any bash shell oopened ,, or how many is actually opened
+  244  ppid
+  245  echo $PPID
+  246  exit
+  247  history 
+  248  pidof init
+  249  pidof bash
+  250  echo $init
+  251  ps -ef | had -1
+  252  ps -ef | head -1
+  253  ps -ef | grep $$
+  254  ps -ef | grep ssh
+  255  ls
+  256  cd paul_linux/
+  257  ls
+  258  cd practice/
+  259  ls
+  260  exec cp dates.txt dates2.txt
+  261  source /etc/os-release 
+  262  dnf remove -y zfs-fuse
+  263  sudo dnf remove -y zfs-fuse
+  264  zfs-fuse
+  265  zfs
+  266  dnf install zfs-fuse
+  267  sudo dnf install zfs-fuse
+  268  sudo dnf install zfsutils-linux 
+  269  sudo dnf install zfsutils
+  270  su -
+  271  ls
+  272  ls *.sh
+  273  cd paul_linux/
+  274  ls *.sh
+  275  bash -x first.sh 
+  276  #introduction to system managements
+  277  who am i
+  278  whoami
+  279  id
+  280  w
+  281  chage -l sysadmin
+  282  grep PASS /etc/login.defs 
+  283  openssl passwd hunter2
+  284  pwgen 20 1
+  285  pwgen -ysBv 20 1
+  286  gpw
+  287  dnf install gpw
+  288  sudo dnf install gpw
+  289  gpw
+  290  dnf install diceware
+  291  sudodnf install diceware
+  292  sudo dnf install diceware
+  293  #this is used to generate pronouncable passwords
+  294  diceware
+  295  xkcdpass
+  296  dnf install xkcdpass
+  297  sudo dnf install xkcdpass
+  298  vipw
+  299  sudo vipw
+  300  head -9 /etc/profile
+  301  grep HIST .bashrc
+  302  cd
+  303  grep HIST .bashrc
+  304  vim ~/.bashrc
+  305  ls
+  306  ls -la | grep .*
+  307  cd
+  308  ls
+  309  ls -la
+  310  cd ..
+  311  ls
+  312  cd sysadmin/
+  313  ls
+  314  vim /etc/bashrc
+  315  vim ~/.bashrc
+  316  find / -name HISTSIZE
+  317  alias | grep yes
+  318  tmux
+  319  cat /etc/group
+  320  groupadd tennis
+  321  su -
+  322  zfs
+  323  modprobe zfs
+  324  journalctl
+  325  journalctl -f
+  326  dmesg
+  327  lsblk
+  328  whereis zfs
+  329  vim /etc/zfs/
+  330  history
+  331  targetcli
+  332  sudo targetcli
+  333  su -
+  334  targetctl restore
+  335  su -
+  336  ls
+  337  logout
+  338  exit
+  339  ls
+  340  cat /etc/passwd 
+  341  su -
+  342  vagrant
+  343  vagrant status
+  344  ls
+  345  cd Vagrant/centos/
+  346  ls
+  347  cat Vagrantfile 
+  348  ls
+  349  cd ..
+  350  ls
+  351  cd ..
+  352  ls
+  353  cat yaml 
+  354  ls
+  355  virt-manager
+  356  QEMU
+  357  dnf install virt
+  358  sudo dnf install virt
+  359  dnf install libvirt
+  360  sudo dnf install libvirt
+  361  dnf install vagrant-libvirt
+  362  sudo dnf install vagrant-libvirt
+  363  getdefault
+  364  runlevel
+  365  ls
+  366  ssh-keygen
+  367  ls
+  368  ssh-copy-id  192.168.124.105
+  369  ssh-copy-id  192.168.124.102
+  370  ssh-copy-id  elliot@192.168.124.102
+  371  ssh-copy-id  elliot@192.168.124.105
+  372  ssh-copy-id  elliot@172.20.10.2
+  373  ls
+  374  su -
+  375  top
+  376  ssh sysadmin@192.168.124.102
+  377  ssh systemadmin@192.168.124.102
+  378  su -
+  379  su -
+  380  docker images
+  381  sudo docker images
+  382  ansible version
+  383  ansible -version
+  384  ansible --version
+  385  su -
+  386  su -
+  387  virt-manager
+  388  su elliot
+  389  vim note_toremember
+  390  su -
+  391  ls
+  392  sudo /etc/hosts
+  393  sudo vim /etc/hosts
+  394  ls
+  395  cd Downloads/new/
+  396  ls
+  397  cd 85d7524e-b3a4-486e-b4bc-797532b83840
+  398  ls
+  399  cp info.json metadata.json Vagrantfile /home/sysadmin/Ansibletu/test-project/
+  400  cd
+  401  cd Ansibletu/test-project/
+  402  ls
+  403  vagrant up
+  404  ls
+  405  vim Vagrantfile 
+  406  vagrant ssh
+  407  vagrant provision
+  408  vim Vagrantfile 
+  409  vagrant provision
+  410  touch playbook.yml
+  411  vim playbook.yml 
+  412  vagrant provision
+  413  vim hosts.ini 
+  414  vagrant provision
+  415  hisory
+  416  history 
+  417  vagrant provision
+  418  ansible --version
+  419  sudo vim /etc/ansible/ansible.cfg 
+  420  touch ansible.cfg
+  421  vim ansible.cfg 
+  422  ansible --version
+  423  vagrant provision
+  424  sudo vagrant provision
+  425  vim hosts.ini 
+  426  vim /etc/hosts 
+  427  vagrant up
+  428  ;s
+  429  ls
+  430  cat Vagrantfile 
+  431  vim Vagrantfile 
+  432  vim hosts.ini 
+  433  vigrant up
+  434  vagrant up
+  435  ls
+  436  vagrant up
+  437  ls
+  438  virt-manager
+  439  vagrant up
+  440  vim Vagrantfile 
+  441  virt manager
+  442  virt-manager
+  443  ansible --version
+  444  su elliot
+  445  ls
+  446  cd Downloads/
+  447  ls
+  448  cd ISOs/
+  449  ls
+  450  ls -li OracleLinux-R9-U1-x86_64-boot.iso 
+  451  chmos 777 OracleLinux-R9-U1-x86_64-boot.iso 
+  452  chmod 777 OracleLinux-R9-U1-x86_64-boot.iso 
+  453  sudo chmod 777 OracleLinux-R9-U1-x86_64-boot.iso 
+  454  ls -li OracleLinux-R9-U1-x86_64-boot.iso 
+  455  cd /var/lib/libvirt/images/
+  456  ls
+  457  sudo ls
+  458  sudo rm rhel9.1.clone.qcow2
+  459  su - 
+  460  ls
+  461  sudo ls
+  462  cd
+  463  su elliot
+  464  ls
+  465  clear
+  466  ansible --version
+  467  mkdir Ansibletu
+  468  cd Ansibletu/
+  469  mkdir /test-project
+  470  ls -l /home/sysadmin/Ansibletu/
+  471  cd
+  472  ls -l /home/sysadmin/Ansibletu/
+  473  ls -l /home/sysadmin/
+  474  cd Ansibletu/
+  475  mkdir test-project
+  476  ls
+  477  touch hosts.ini
+  478  vim hosts.ini 
+  479  ls
+  480  mv hosts.ini test-project/
+  481  ls
+  482  cd test-project/
+  483  ansible -i hosts.ini example -m ping -u sysadmin
+  484  virt-manager
+  485  vim hosts.ini 
+  486  ansible -i hosts.ini example -m ping -u sysadmin
+  487  ssh-keygen
+  488  cd
+  489  ssh-copy-id node1
+  490  ssh node1
+  491  ssh elliot@node1
+  492  ssh-copy-id elliot@node1
+  493  ls
+  494  cd Ansibletu/test-project/
+  495  ls
+  496  ansible -i hosts.ini example -m ping -u sysadmin
+  497  ansible -i hosts.ini example -m ping -u elliot
+  498  ansible -i hosts.ini example -a "free -h" -u elliot
+  499  find / -name generic-VAGRANT
+  500  ls
+  501  vim hosts.ini 
+  502  sudo vim /etc/hosts
+  503  ansible all -m hosts.ini 
+  504  history
+  505  ls
+  506  rm info.json metadata.json 
+  507  ls
+  508  sudo ansible provision
+  509  ansible -m hosts.ini "ping"
+  510  systemctl reload NetworkManager.service 
+  511  ansible -m hosts.ini "ping"
+  512  ssh vagrant@node2
+  513  sudo ssh vagrant@node2
+  514  ssh vagrant@node3
+  515  cd
+  516  ssh vagrant@node3
+  517  ssh-copy-id vagrant@node2
+  518  ssh elliot@node1
+  519  ssh elliot@node2
+  520  mkdir ~/VMs/todo
+  521  mkdir -p ~/VMs/todo
+  522  ls
+  523  cd VMs/todo/
+  524  touch Vagrantfile
+  525  vim Vagrantfile 
+  526  vagrant up
+  527  vim Vagrantfile 
+  528  vagrant up
+  529  vim Vagrantfile 
+  530  vagrant up
+  531  vim Vagrantfile 
+  532  vagrant up
+  533  ls
+  534  vim Vagrantfile 
+  535  clear
+  536  ls
+  537  cd
+  538  ls
+  539  rm -r Ansibletu/ VMs/
+  540  LS
+  541  ls
+  542  cd Vagrant/
+  543  ls
+  544  cd centos/.vagrant/reboot
+  545  sudo rboot
+  546  reboot
+  547  ls
+  548  ansible --version
+  549  ps --forest
+  550  ps -f --forest
+  551  cd
+  552  ls
+  553  ps
+  554  exit
+  555  bash
+  556  exit
+  557  bash
+  558  exit
+  559  ps -f
+  560  bash
+  561  exit
+  562  su rmary
+  563  ls
+  564  mkdir Richard_Blumlinux
+  565  cd Richard_Blumlinux/
+  566  runlevel
+  567  cat /etc/init
+  568  cat /etc/inittab
+  569  systemctl get-default
+  570  keepnote
+  571  dnf install python python-gtk2 python-glade2
+  572  sudo dnf install python python-gtk2 python-glade2
+  573  dnf install keepnote
+  574  sudo dnf install keepnote
+  575  tty
+  576  settern --inversescreen on
+  577  setterm --inversescreen on
+  578  ls
+  579  ls /home/sysadmin/
+  580  setterm --inversescreen off
+  581  setterm -h
+  582  setterm --help
+  583  less setterm --help
+  584  setterm --help | less
+  585  setterm --background white
+  586  setterm --foreground black
+  587  setterm --reset
+  588  setterm  --background green
+  589  this looks really odd
+  590  ls
+  591  ls /home/sysadmin/
+  592  ls
+  593  setterm --reset
+  594  man man
+  595  ls /home/
+  596  ls -l
+  597  ls -l /home/
+  598  ls /lib
+  599  ls /media/
+  600  ls /mnt/
+  601  cd /mnt/
+  602  ls
+  603  rmdir -r mymusic/ test/
+  604  rmdir -R mymusic/ test/
+  605  rmdir -p mymusic/ test/
+  606  sudo rmdir -p mymusic/ test/
+  607  ls
+  608  cd ~/Richard_Blumlinux/
+  609  ls /root
+  610  sudo ls /root
+  611  history
+  612  ls /run/
+  613  ls /sbin/
+  614  ls /sbin/ | less
+  615  cd /srv/
+  616  ls
+  617  cd lie/
+  618  ls
+  619  cd
+  620  sudo rmdir /srv/lie/ /srv/pro42/ /srv/project42/
+  621  ls /srv/
+  622  ls /sys/
+  623  ls /usr/
+  624  ls /usr/games/
+  625  ls
+  626  cd /usr/games/
+  627  ls
+  628  cd ~/Richard_Blumlinux/
+  629  ls /usr/i686-w64-mingw32/sys-root/mingw/share/locale/
+  630  ls /home/sysadmin/
+  631  ls -F /home/sysadmin/
+  632  ls -F -R /home/sysadmin/
+  633  mkdir first
+  634  cd first/
+  635  touch my_script my_scrapt my_file
+  636  touch fall fell fill full
+  637  ls
+  638  ls -l my_script 
+  639  ls -l my_scr?pt
+  640  ls -l my*
+  641  ls -l my_s*t
+  642  touch my_scrypt
+  643  ls -l my_scr[ay]pt
+  644  ls f*ll
+  645  ls f[a-i]ll
+  646  ls f[a-z]ll
+  647  ls -l f[!a]ll
+  648  touch test_file
+  649  ls -l test_file 
+  650  ln -s test_file slink_test_file
+  651  ls
+  652  ls -l *test_file
+  653  ls -li *test_file
+  654  pwd
+  655  touch test_one
+  656  ls -l *test_one
+  657  ln test_one hlink_test_one
+  658  ls -li *test_one
+  659  mv fall fzll
+  660  ls -li f?ll
+  661  rename fzll fall
+  662  mv fzll fall
+  663  ls -li f?ll
+  664  rum -i f?ll
+  665  rm -i f?ll
+  666  ls -l f?ll
+  667  mkdir -p New_Dir/SubDr/UnderDir
+  668  ls
+  669  ls -R New_Dir/
+  670  rm -ir New_Dir/
+  671  ls
+  672  file /home/sysadmin/.bashrc
+  673  ls
+  674  file my_file 
+  675  file slink_test_file 
+  676  file /usr/bin/ls
+  677  vim test_file 
+  678  cat test_file 
+  679  cat -n test_file 
+  680  cat -b test_file 
+  681  echo line1 line2
+  682  echo line1 line2 line3 line4 > log_file
+  683  ls
+  684  cat log_file 
+  685  vim log_file 
+  686  cat log_file 
+  687  vim log_file 
+  688  cat log_file 
+  689  tail log_file 
+  690  tail -n 2 log_file 
+  691  vim log_file 
+  692  tail -n 2 log_file 
+  693  head -3 log_file 
+  694  head -n 3 log_file 
+  695  lsblk
+  696  ps -V
+  697  ps -A
+  698  ps -A | less
+  699  ps -e
+  700  ps -g
+  701  ps -u
+  702  sudo ps -u rmary
+  703  ps -F
+  704  ps -l
+  705  ps -S
+  706  ps -PRI
+  707  ps --forest
+  708  ps -e --forest
+  709  top
+  710  mount -t ext4
+  711  mount -t type 
+  712  lsblk
+  713  df
+  714  df -t ext4 -t vfat
+  715  df -h
+  716  du
+  717  du /dev/sdb
+  718  du /dev/sdb1
+  719  vim file1
+  720  sort file1 
+  721  vim file1
+  722  vime file2
+  723  vim file2
+  724  sort file2
+  725  vim file3
+  726  sort file3
+  727  sort -M file3
+  728  vim file3
+  729  sort -M file3
+  730  cat file2
+  731  sort file2
+  732  sort -n file2
+  733  cat /etc/passwd
+  734  sort -t ':' -k 3 -n /etc/passwd
+  735  du -sh * | sort -nr
+  736  grep three file1
+  737  grep t file1
+  738  grep -v t file1
+  739  grep -n t file1
+  740  grep -c t file1
+  741  grep -e t -e f file1
+  742  grep [tf] file1
+  743  touch myprog
+  744  gzip myprog 
+  745  ls -l my*
+  746  gcat myprog.gz 
+  747  gzcat myprog.gz 
+  748  gunzip myprog.gz 
+  749  ls -l
+  750  tar cvf myprog
+  751  tar
+  752  tar --help
+  753  tar -cvf myprog
+  754  tar -cvf m84884oije.tar myprog myfile
+  755  tar -cvf m84884oije.tar myprog 
+  756  ls
+  757  tar -tf m84884oije.tar 
+  758  tar -xvf m84884oije.tar 
+  759  ;s
+  760  ls
+  761  rm -i m84884oije.tar 
+  762  ls
+  763  which dash
+  764  which bash
+  765  cat /etc/shells 
+  766  echo $0
+  767  dash
+  768  ping google.com
+  769  ping www.google.com
+  770  ping google.com
+  771  dash
+  772  echo $0
+  773  ps -f
+  774  bash
+  775  ps
+  776  exit
+  777  ~/Richard_Blumlinux/
+  778  ls
+  779  cd ~/Richard_Blumlinux/
+  780  ls
+  781  cd first/
+  782  ls
+  783  ps -f
+  784  pwd ; ls test* ; cd /etc ; pwd ; cd ; pwd ; ls my*
+  785  pwd ; ls test* ; cd /etc ; pwd ; cd ; pwd ; ls ~/Richard_Blumlinux/first/my*
+  786  (pwd / ls test* ; cd /etc ; pwd ; cd ; pwd ; ls my*)
+  787  ps
+  788  echo $BASH_SUBSHELL
+  789  (pwd ; echo $BASH_SUBSHELL)
+  790  (pwd ; (echo $BASH_SUBSHELL))
+  791  PS
+  792  ps
+  793  sleep 10
+  794  sleep 3000&
+  795  ps -f
+  796  jobs
+  797  jobs -l
+  798  (sleep 2 ; echo $BASH_SUBSHEL ; sleep 2)
+  799  (sleep 2 ; echo $BASH_SUBSHELL ; sleep 2)
+  800  (sleep 2 ; echo $BASH_SUBSHELL ; sleep 2)&
+  801  coproc sleep 10
+  802  jobs
+  803  coproc My_job { sleep 10; }
+  804  jobs
+  805  ps --forest
+  806  history -a
+  807  li
+  808  exit
+  809  ps -f
+  810  echo $HOME
+  811  exit
+  812  echo  $my_variable
+  813  exit
+  814  echo $my_variable
+  815  exit
+  816  echo my_variable
+  817  echo $my_variable 
+  818  exit
+  819  history
+  820  cat .bash_history 
+  821  history
+  822  jobs
+  823  alias -p
+  824  alias li='ls -i'
+  825  li
+  826  bash
+  827  li
+  828  printenv
+  829  env
+  830  OLDPWD
+  831  PS
+  832  ps
+  833  jobs
+  834  printenv HOME
+  835  env HOME
+  836  echo $HOME
+  837  ls $HOME
+  838  bash 
+  839  set
+  840  set | less
+  841  #setting global variables have to add the "export" to the variable to add up.
+  842  my_variable="this is my variable"
+  843  $my_variable 
+  844  echo $my_variable 
+  845  bash
+  846  export $my_variable 
+  847  bash
+  848  echo $my_variable 
+  849  unset my_variable 
+  850  echo $my_variable
+  851  export my_variable="I am global now"
+  852  echo my_variable
+  853  bash
+  854  echo my_variable
+  855  echo $my_variable
+  856  echo $HISTSIZE
+  857  echo $HISTFILESIZE
+  858  echo $PATH
+  859  myprog
+  860  ls
+  861  cd Richard_Blumlinux/
+  862  ls
+  863  cd
+  864  mv Richard_Blumlinux/ christine
+  865  ls
+  866  cd christine/
+  867  ls
+  868  mkdir Scripts
+  869  ls
+  870  echo "The factorial of 5 is 120
+  871  echo "The factorial of 5 is 120"
+  872  echo "The factorial of 5 is 120" > myprog
+  873  ls
+  874  cat /etc/profile
+  875  cat /etc/profile | less
+  876  ls /etc/profile.d/
+  877  cat /etc/profile.d/less.sh
+  878  ls -a /home/sysadmin/
+  879  cd /home/sysadmin/.ansible/tmp/ansible-local-85127vq_i16bb/
+  880  ls
+  881  cd ~/christine/
+  882  ls
+  883  cat $HOME/.bash_profile 
+  884  cat $HOME/.bashrc
+  885  printenv BASH_ENV
+  886  echo $BASH_ENV
+  887  #learning variable arrays
+  888  mytest=(zero one two three four)
+  889  echo $mytest 
+  890  echo ${mytest[2]}
+  891  echo $[
+  892  echo ${mytest[*]} 
+  893  mytest[2]=seven
+  894  echo ${mytest[2]} 
+  895  echo ${mytest[*]} 
+  896  unset mytest[2]
+  897  echo ${mytest[*]} 
+  898  echo ${mytest[3]} 
+  899  unset mytest 
+  900  echo ${mytest[*]} 
+  901  useradd -D
+  902  ls -l /etc/skel
+  903  ls -al /etc/skel/
+  904  sudo vim /etc/login.defs 
+  905  useradd -D
+  906  useradd -D -s /bin/tsch
+  907  sudo useradd -D -s /bin/tsch
+  908  tsch
+  909  cat /etc/passwd
+  910  sudo cat /etc/shadow
+  911  sudo cat /etc/shadow | sort
+  912  cat /etc/passwd
+  913  chfn gbolaga
+  914  vim /etc/login.defs 
+  915  sudo chsh sysadmin 
+  916  umask
+  917  ls
+  918  ls -l
+  919  chmod a=rwx myprog 
+  920  ls -l
+  921  ls /etc/group
+  922  cat /etc/group
+  923  chown mysql sysadmin
+  924  groupadd mysql sysadmin
+  925  usermod -aG mysql sysadmin
+  926  sudo usermod -aG mysql sysadmin
+  927  cat /etc/group
+  928  cat /etc/group 
+  929  cat /etc/group  | grep mysql
+  930  getfacl first
+  931  ls first/
+  932  lsblk
+  933  setterm --backgroud white
+  934  setterm --background white
+  935  setter --forground black
+  936  setterm --forground black
+  937  setterm --foreground black
+  938  tls
+  939  history
+  940  ls
+  941  setterm --reset
+  942  setterm -h
+  943  setterm -help
+  944  setterm --inversescreen on
+  945  ls
+  946  sudo dnf install emacs
+  947  emacs
+  948  setterm --inversescreen off
+  949  date
+  950  date ; who
+  951  rpm -qa | sort | more
+  952  exp 6 * 2
+  953  exp 7 \* 2
+  954  expr 7 \* 2
+  955  expr 6 * 2
+  956  ls
+  957  cd Scripts/
+  958  ls
+  959  vim m
+  960  m story.sh
+  961  chmod rwx+ugo m
+  962  chmod rwx=ugo m
+  963  chmod ugo=rwx m
+  964  ls
+  965  m story.sh
+  966  vim m
+  967  m story.sh
+  968  ./m story.sh
+  969  ls
+  970  vim story.sh 
+  971  rm story.sh 
+  972  ls
+  973  bc -q
+  974  PATH=PATH:/home/sysadmin/christine/Scripts/
+  975  $PATH=PATH:/home/sysadmin/christine/Scripts/
+  976  PATH=$PATH:/home/sysadmin/christine/Scripts/
+  977  ./m test9.sh
+  978  exit
+  979  ls
+  980  exit
+  981  m delete_users.sh
+  982  exit
+  983  pwd
+  984  exit
+  985  addem 20 5
+  986  multem 10 5
+  987  divem 10 5
+  988  vim myfuncs 
+  989  divem 10 5
+  990  exit
+  991  divem 10 5
+  992  exit
+  993  function_use_inbashrc.sh 
+  994  exit
+  995  function_use_inbashrc.sh 
+  996  exit
+  997  function_use_inbashrc.sh 
+  998  exit
+  999  function_use_inbashrc.sh 
+ 1000  exit
+ 1001  history
+ 1002  ls
+ 1003  cat Scripts 
+ 1004  cd christine/
+ 1005  ls
+ 1006  cd Scripts/
+ 1007  ls
+ 1008  cat data3
+ 1009  cat history1 | more
+ 1010  #starting from page 778 lookine at multiline commands
+ 1011  #navigating the next command
+ 1012  cat data1.txt 
+ 1013  vim data1.sed
+ 1014  sed '/^$/d' dat1.sed
+ 1015  sed '/^$/d' data1.sed
+ 1016  sed '/Header/{n ; d}' data1.sed
+ 1017  vim data2.sed
+ 1018  sed '/First/{ N ; s/\n/ / }' data2.sed
+ 1019  vim data3.sed
+ 1020  sed 's/System Admin/DevOps Engineet/' data3.sed 
+ 1021  sed 's/System Admin/DevOps Engineer/' data3.sed 
+ 1022  sed '/Tuesday/{ N ; s/\n/ / }' data3.sed
+ 1023  sed 'N ; s/System.Admin/DevOps Engineer/' data3.sed
+ 1024  sed 'N
+s/System\nAdmin/DevOps\nEngineer/
+s/System Admin/DevOps Engineer/
+' data3.sed
+ 1025  vim data4.sed
+ 1026  sed 'N
+s/System\nAdmin/DevOps\nEngineer/
+s/System Admin/DevOps Engineer/
+' data4.sed
+ 1027  #to solve issues of the last line not printed,
+ 1028  sed '
+s/System Admin/DevOps Engineer/
+N
+s/System\nAdmin/DevOps\nEngineer/
+' data4.sed
+ 1029  #Navigating the multiline delete command
+ 1030  cat data4.sed 
+ 1031  sed 'N ; /System\nAdmine/d' data4.sed 
+ 1032  sed 'N ; /System\nAdmin/d' data4.sed 
+ 1033  sed 'N ; /System\nAdmin/D' data4.sed
+ 1034  vim data5.sed
+ 1035  sed '/^$/{N ; /Header/D}' data5.sed
+ 1036  cat data3.sed 
+ 1037  sed -n 'N ; /System\nAdmin/P' data3.sed
+ 1038  corruptData.sed
+ 1039  vim corruptData.sed
+ 1040  sed -n '
+N
+s/#\n@//
+P
+D
+' corruptData.sed
+ 1041  # sed holding space page 787
+ 1042  history 
+ 1043  history > history3.from 1000

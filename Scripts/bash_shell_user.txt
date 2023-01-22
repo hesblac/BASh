@@ -1,0 +1,7 @@
+root:x:0:0:root:/root:/bin/csh
+sysadmin:x:1000:1000:steve olaiya:/home/sysadmin:/bin/csh
+rmary:x:1001:1001:Rose Mary:/home/rmary:/bin/csh
+gbolaga:x:1002:1002:Gbolaga :/home/gbolaga:/bin/csh
+postgres:x:26:26:PostgreSQL Server:/var/lib/pgsql:/bin/csh
+amandabackup:x:33:6:Amanda user:/var/lib/amanda:/bin/csh
+elliot:x:1003:1003::/home/elliot:/bin/csh

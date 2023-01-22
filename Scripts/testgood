@@ -1,0 +1,5 @@
+test:
+total 8
+drwxr-xr-x. 1 sysadmin sysadmin   34 Jan  2 06:56 .
+drwxr-xr-x. 1 sysadmin sysadmin 3280 Jan  3 00:39 ..
+-rwxr-xr-x. 1 sysadmin sysadmin  177 Jan  2 06:56 add_parameters.sh
